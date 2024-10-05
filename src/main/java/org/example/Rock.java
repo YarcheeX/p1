@@ -12,11 +12,11 @@ public class Rock extends Unit {
     final static Image imageDefault = new ImageIcon(Rock.class.getResource("/imgs/Skins/RockSkins/RockDefault.png")).getImage();
     final static Image imageHand = new ImageIcon(Rock.class.getResource("/imgs/Skins/RockSkins/RockHand.png")).getImage();
 
-    static Image currentSkin = imageDefault;    //установленный скин
-    static int centerOffset;                    //смещение для отображения по центру объекта
-    static double rockVelocityRatio = 1.0;      //коэффициент скорости камней
+    static Image currentSkin = imageDefault;        //установленный скин
+    static int centerOffset;                        //смещение для отображения по центру объекта
+    static double rockVelocityRatio = 1.0;          //коэффициент скорости камней
 
-    static List<Rock> allRocks = new ArrayList<>();
+    static List<Rock> allRocks = new ArrayList<>(); //список всех камней
 
     Rock(double x, double y, double radius, double dx, double dy){
 
@@ -34,6 +34,7 @@ public class Rock extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //получить список всех камней
     public static List<Rock> getAllRocks(){
         return allRocks;
     }
@@ -60,7 +61,7 @@ public class Rock extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //перегрузка метода установ
+    //перегрузка метода установки скорости
     @Override
     public void setVelocity(double dx, double dy){
         super.setVelocity(dx, dy);
@@ -78,6 +79,7 @@ public class Rock extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //метод отрисовки камня
     @Override
     public void draw(Graphics2D g2d){
         g2d.drawImage(currentSkin, (int)(center.x - centerOffset), (int)(center.y - centerOffset),null);
@@ -85,6 +87,7 @@ public class Rock extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //метод клонирования
     @Override
     public Object clone() throws CloneNotSupportedException{
         Rock copy = (Rock) super.clone();

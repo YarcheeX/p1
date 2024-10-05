@@ -8,7 +8,6 @@ import java.util.Random;
 
 //класс главной панели главного окна.
 //на ней отрисовывается шестиугольник, движущиеся объекты
-
 class MainPanel extends JPanel {
 
     //конфигурация
@@ -33,11 +32,14 @@ class MainPanel extends JPanel {
     java.util.List<Paper> papers;       //бумаги
     java.util.List <Scissors> scissors; //ножницы
 
-    int currentIteration = 1;
+    //шестиугольник
+    Hexagon hexagon;
 
-    int rockWinsCount = 0;
-    int paperWinsCount = 0;
-    int scissorsWinsCount = 0;
+    int currentIteration = 1;           //счетчик текущей итерации
+
+    int rockWinsCount = 0;              //счетчик побед камней
+    int paperWinsCount = 0;             //счетчик побед бумаг
+    int scissorsWinsCount = 0;          //счетчик побед ножниц
 
     int[][] permutationsCollisions = {  //массив перестановок порядка обработки столкновений
             {1,2,3},
@@ -51,15 +53,13 @@ class MainPanel extends JPanel {
     int currentPermutationIndex = 0;    //индекс текущей перестановки
 
 
-    //шестиугольник
-    Hexagon hexagon;
 
     //конструктор гланвой панели
     MainPanel(MainFrame mainFrame) {
 
         controlPanel = new ControlPanel(mainFrame,this);
 
-        //инициализация и настройка событий таймера
+        //инициализация и настройка событий таймеров
         mainTimer = new Timer(MAIN_DELAY, e -> {
             for(Unit unit : units){
                 unit.move();                                //перемещение
@@ -110,6 +110,7 @@ class MainPanel extends JPanel {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //получить главный таймер
     public Timer getMainTimer(){
         return mainTimer;
     }
@@ -327,8 +328,10 @@ class MainPanel extends JPanel {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //проверить и выполнить победу
     private void checkMakeWin(){
 
+        //если один из списков пуст, то прибавить победу
         if(rocks.isEmpty())
             scissorsWinsCount++;
         else if (papers.isEmpty())
@@ -339,9 +342,11 @@ class MainPanel extends JPanel {
         else
             return;
 
+        //и начать следующую итерацию
         nextIteration();
     }
 
+    //очистить все списки юнитов
     private void clearAllUnits(){
         units.clear();
         rocks.clear();
@@ -349,6 +354,7 @@ class MainPanel extends JPanel {
         scissors.clear();
     }
 
+    //переход на следующую итерацию
     private void nextIteration() {
 
         mainTimer.stop();

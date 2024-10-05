@@ -8,14 +8,15 @@ import java.util.List;
 
 class Paper extends Unit {
 
+    //исходные изображения бумаг
     final static Image imageDefault = new ImageIcon(Paper.class.getResource("/imgs/Skins/PaperSkins/PaperDefault.png")).getImage();
     final static Image imageHand = new ImageIcon(Paper.class.getResource("/imgs/Skins/PaperSkins/PaperHand.png")).getImage();
 
-    static Image currentSkin = imageDefault;
-    static int centerOffset;
-    static double paperVelocityRatio = 1.0;
+    static Image currentSkin = imageDefault;            //установленный скин
+    static int centerOffset;                            //смещение для отображения по центру объекта
+    static double paperVelocityRatio = 1.0;             //коэффициент скорости бумаг
 
-    static List<Paper> allPapers = new ArrayList<>();
+    static List<Paper> allPapers = new ArrayList<>();   //список всех бумаг
 
     Paper(double x, double y, double radius, double dx, double dy){
         super(x, y, radius, dx, dy);
@@ -31,12 +32,14 @@ class Paper extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //получить список всех бумаг
     public static List<Paper> getAllPapers(){
         return allPapers;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //установить скин (изображение бумаг)
     public static void setSkin(Configuration configuration){
 
         int size = (int)Configuration.getEqualTypePresetRadius(configuration.paperRadiusValue) * 2;
@@ -56,6 +59,7 @@ class Paper extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //установить коэффициент скорости бумаг
     public static void setPaperVelocityRatio(int ratio){
         paperVelocityRatio = ratio;
         for(Paper paper : allPapers)
@@ -64,6 +68,7 @@ class Paper extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //перегрузка метода установки скорости
     @Override
     public void setVelocity(double dx, double dy){
         super.setVelocity(dx, dy);
@@ -72,6 +77,7 @@ class Paper extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //метод отрисовки бумаги
     @Override
     public void draw(Graphics2D g2d){
         g2d.drawImage(currentSkin, (int)(center.x - centerOffset), (int)(center.y - centerOffset) ,null);
@@ -79,6 +85,7 @@ class Paper extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //метод клонирования
     @Override
     public Object clone() throws CloneNotSupportedException{
 
@@ -88,6 +95,7 @@ class Paper extends Unit {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //обработать столкновения
     public static void collidePapers(Configuration configuration){
 
         List<Scissors> scissors = Scissors.getAllScissors();

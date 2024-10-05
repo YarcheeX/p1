@@ -7,17 +7,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+//класс окна установки конфигурации
 class ConfigurationFrame extends JFrame {
 
 
-    MainFrame mainFrame;
-    MainPanel mainPanel;
-    ControlPanel controlPanel;
+    MainFrame mainFrame;                            //ссылка на главное окно
+    MainPanel mainPanel;                            //ссылка на главную панель
+    ControlPanel controlPanel;                      //ссылка на панель котроля
 
 
-    private JPanel comboBoxPanel;
-    private JPanel buttonPanel;
-    private JPanel spinnerPanel;
+    private JPanel comboBoxPanel;                   //панель комбинированных списков
+    private JPanel buttonPanel;                     //панель кнопок
+    private JPanel spinnerPanel;                    //панель спинеров
 
     //кнопка подтверждения установки конфигурации и кнопка закрытия
     private JButton applyButton;
@@ -52,6 +54,8 @@ class ConfigurationFrame extends JFrame {
     private JSpinner rockSpinner;
     private JSpinner paperSpinner;
     private JSpinner scissorsSpinner;
+
+    //спинер максимального числа итераций симуляции
     private JSpinner iterationsSpinner;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,11 +84,13 @@ class ConfigurationFrame extends JFrame {
         add(spinnerPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
+        //настроить менеджер отображения всплывающих подсказок
         ToolTipManager.sharedInstance().setDismissDelay(10000);
 
+        //установить заголовок, размеры, операцию закрытия по умолчанию, начальное положение, и неизменяемость размеров
         setTitle("Configuration Window");
         setSize(450, 280);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Только закрытие окна конфигурации
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -171,7 +177,7 @@ class ConfigurationFrame extends JFrame {
         initVelocityComboBoxes();
         initSkinComboBox();
 
-        //установить одинаковые размеры комбобоксов для красоты
+        //установить одинаковые размеры комбобоксов для корректного отображения
         Dimension dimension = new Dimension(spawnComboBox.getPreferredSize());
         modeComboBox.setPreferredSize(dimension);
         velocityComboBox.setPreferredSize(dimension);
@@ -198,16 +204,15 @@ class ConfigurationFrame extends JFrame {
                     "размеров и скоростей приближено к реальным."
         };
 
+        //установка всплывающих подсказок для элементов комбинированного списка
         modeComboBox.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
                 if (index >= 0) {
                     list.setToolTipText(modeToolTips[index]);
                 }
-
                 return c;
             }
         });
@@ -260,16 +265,16 @@ class ConfigurationFrame extends JFrame {
                 "Одинаковая скорость всех юнитов.",
                 "Случайная скорость всех юнитах в пределах предустановленного модуля."
         };
+
+        //установка всплывающих подсказок для элементов комбинированного списка
         velocityComboBox.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
                 if (index >= 0) {
                     list.setToolTipText(velocityToolTips[index]);
                 }
-
                 return c;
             }
         });
@@ -311,16 +316,16 @@ class ConfigurationFrame extends JFrame {
                 "Нужно выбрать предустановленное значение для соответствующего типа.",
             "Одинаковый радиус всех юнитов."
         };
+
+        //установка всплывающих подсказок для элементов комбинированного списка
         radiusComboBox.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
                 if (index >= 0) {
                     list.setToolTipText(radiusToolTips[index]);
                 }
-
                 return c;
             }
         });
@@ -364,16 +369,16 @@ class ConfigurationFrame extends JFrame {
                 "(Центры шести равносторонних треугольников, на которые поделен шестиугольник)",
             "Случайные точки появления всех юнитов внутри вписаной окружности шестиугольника"
         };
+
+        //установка всплывающих подсказок для элементов комбинированного списка
         spawnComboBox.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
                 if (index >= 0) {
                     list.setToolTipText(spawnToolTips[index]);
                 }
-
                 return c;
             }
         });
@@ -477,6 +482,8 @@ class ConfigurationFrame extends JFrame {
                 "Скины юнитов соответствующие изображениям обычных предметов.",
                 "Скины юнитов соответствующие изображениям жестов руки."
         };
+
+        //установка всплывающих подсказок для элементов комбинированного списка
         skinComboBox.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
